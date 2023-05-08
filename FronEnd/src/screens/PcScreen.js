@@ -8,7 +8,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import Carrousel from '../components/Carrousel'
+
 export default function HomeScreen() {
   const dispatch=useDispatch()
   const productList=useSelector((state)=> state.productList)
@@ -39,7 +39,7 @@ export default function HomeScreen() {
       />
     
   </InputGroup>
-        <Carrousel/>
+        
       </header>
         {loading ? (
           <Loader/>

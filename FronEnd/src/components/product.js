@@ -2,9 +2,12 @@ import React from 'react'
 import {Card} from 'react-bootstrap'
 import Rating from './Rating'
 import { Link } from 'react-router-dom'
+import Carousel from 'react-bootstrap/Carousel';
+
 export default function Product({singleItem}) {
   return (
     <div>
+      
         <Card style={{ width: '18rem' }}>
             <Link to={`/product/${singleItem._id}`}>
       <Card.Img variant="top" src={singleItem.image} />

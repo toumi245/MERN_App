@@ -7,6 +7,9 @@ import {LinkContainer} from 'react-router-bootstrap'
 import DropDown from './DropDown';
 import { NavDropdown } from 'react-bootstrap';
 import {logout} from '../actions/userAction'
+import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
+
 import './style.css'
 export default function Header() {
   const dispatch=useDispatch()
@@ -15,8 +18,14 @@ export default function Header() {
    const logoutHandler=()=>{
     dispatch(logout())
   }
-  const [searchTerm, setSearchTerm] = useState('');
+    const productList=useSelector((state)=> state.productList)
 
+  const {loading,error,products}=productList
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const searchResults = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <div>
       
@@ -52,7 +61,15 @@ export default function Header() {
                 </Nav.Link>
               </LinkContainer>
             )}
-            
+        <InputGroup className="mb-3" style={{width:'260px',justifyContent:'center',display:'flex'}}>
+    <Form.Control
+      placeholder="SearchProduct"
+      aria-label="SearchProduct"
+      aria-describedby="basic-addon2"
+      value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+      />
+    </InputGroup>
 
           </Nav>
           
@@ -63,6 +80,7 @@ export default function Header() {
               Dank memes
             </Nav.Link>
           </Nav>
+          
         </Navbar.Collapse>
       </Container>
     </Navbar>

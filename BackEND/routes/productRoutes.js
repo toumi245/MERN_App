@@ -7,6 +7,7 @@ import {getProducts,getProductById} from '../controllers/productController.js'
 // other code.
 
 router.route('/').get(getProducts)
+router.route('/pc').get(getProducts)
 router.route('/:id').get(getProductById)
 
 export default router

@@ -4,22 +4,32 @@ import { Button,Row,Col,ListGroup,Image,Card } from 'react-bootstrap'
 import { useDispatch,useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
+import {createOrder} from '../actions/orderActions.js'
 export default function PlaceOrderScreen() {
   const cart=useSelector((state)=>state.cart)
+  const dispatch=useDispatch()
   //calculate prices
   const addDecimals=(num)=>{
     return (Math.round(num*100)/100).toFixed(2)
   }
-  cart.itemsPrice=addDecimals(cart.cartItems.reduce((acc,item)=>acc+item.price*item.qty,0))
+  cart.itemsPrice=addDecimals(cart.cartItems.reduce((acc,item)=>acc+ parseInt(item.price) * item.qty,0))
   cart.shippingPrice=addDecimals(cart.itemsPrice>100 ?0: 100)
   cart.taxPrice=addDecimals(Number((0.15*cart.itemsPrice).toFixed(2)))
-  cart.totalPrice=addDecimals(Number(cart.itemsPrice)+
-    Number(cart.shippingPrice)+
-    Number(cart.taxPrice).toFixed(2))
+  cart.totalPrice=parseInt(cart.itemsPrice)+
+    parseInt(cart.shippingPrice)+
+    parseInt(cart.taxPrice)
   const placeOrderHandler=()=>{
     console.log('order')
+    dispatch(createOrder({
+        orderItems:cart.cartItems,
+        shippingAdress:cart.shippingAdress,
+        paymentMethod:cart.paymentMethod,
+        itemsPrice:cart.itemsPrice,
+        shippingPrice:cart.taxPrice,
+        taxPrice:cart.taxPrice,
+        totalPrice:cart.totalPrice
+    }))
   }
-
     return (
     <>
     <CheckoutSteps step1 step2 step3 step4/>
@@ -59,7 +69,8 @@ export default function PlaceOrderScreen() {
                                         </Link>
                                         </Col>
                                         <Col md={4}>
-                                            {item.qty}x ${item.price}={item.qty *item.price}
+                                        {parseInt(item.qty)}x ${parseInt(item.price)}=${parseInt(item.qty) * parseInt(item.price)}
+
                                         
                                         </Col>
                                         
@@ -81,7 +92,7 @@ export default function PlaceOrderScreen() {
                     <ListGroup.Item>
                         <Row>
                             <Col>Items</Col>
-                            <Col>{cart.itemsPrice}</Col>
+                            <Col>${cart.itemsPrice}</Col>
                         </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>
@@ -101,6 +112,15 @@ export default function PlaceOrderScreen() {
                             <Col>Total</Col>
                             <Col>${cart.totalPrice}</Col>
                         </Row>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                    <Button
+                    type='button'
+                    className='btn-block'
+                    disabled={cart.cartItems === 0}
+                    onClick={placeOrderHandler}>
+                        Place Order
+                    </Button>
                     </ListGroup.Item>
                 </ListGroup>
             </Card>

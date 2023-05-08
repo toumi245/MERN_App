@@ -20,7 +20,7 @@ function App() {
   
   
     <Router>
-    <Header/>
+    <Header searchTerm={searchTerm} />
     <main className='py-3'>
       <Container>
         <Routes>
@@ -33,8 +33,6 @@ function App() {
         <Route path='/shipping' element={<ShippingScreen/>} exact/>
         <Route path='/payment' element={<PaymentScreen/>} exact/>
         <Route path='/placeorder' element={<PlaceOrderScreen/>} exact/>
-
-
         </Routes>
       </Container>
     </main>
