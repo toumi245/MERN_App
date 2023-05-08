@@ -4,7 +4,7 @@ import {productListReducer,productDetailsReducer} from './reducers/productReduce
 import {userLoginReducer,userRegisterReducer,userDetailsReducer, userUpdateProfileReducer} from './reducers/userReducers'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import { cartReducer}  from './reducers/cartReducers'
-
+import {orderCreateReducer} from './reducers/orderReducers'
 const reducer=combineReducers({
     productList:productListReducer,
     productDetails:productDetailsReducer,
@@ -12,13 +12,14 @@ const reducer=combineReducers({
     userLogin:userLoginReducer,
     userRegister:userRegisterReducer,
     userDetails:userDetailsReducer,
-    userUpdateProfile:userUpdateProfileReducer
+    userUpdateProfile:userUpdateProfileReducer,
+    orderCreate:orderCreateReducer
 })
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
   : [];
-const userInfoFromStorage = localStorage.getItem('info')
-  ? JSON.parse(localStorage.getItem('info'))
+const userInfoFromStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
   const shippingAdressFromStorage = localStorage.getItem('shippingAdress')
   ? JSON.parse(localStorage.getItem('shippingAdress'))

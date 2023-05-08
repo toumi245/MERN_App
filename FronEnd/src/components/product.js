@@ -2,9 +2,10 @@ import React from 'react'
 import {Card} from 'react-bootstrap'
 import Rating from './Rating'
 import { Link } from 'react-router-dom'
-import Carousel from 'react-bootstrap/Carousel';
 
 export default function Product({singleItem}) {
+
+
   return (
     <div>
       

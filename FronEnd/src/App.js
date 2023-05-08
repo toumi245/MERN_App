@@ -15,16 +15,16 @@ import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
-
+  
   return (
   
   
     <Router>
-    <Header searchTerm={searchTerm} />
+    <Header setSearchTerm={setSearchTerm} />
     <main className='py-3'>
       <Container>
         <Routes>
-        <Route path='/' element={<HomeScreen  searchTerm={searchTerm} />} exact/>
+        <Route path='/' element={<HomeScreen   />} exact/>
         <Route path='/product/:id' element={<ProductScreen/>}exact/>
         <Route path='/cart/:id?' element={<CartScreen />}/>
         <Route path='/login' element={<LoginScreen/>} exact/>

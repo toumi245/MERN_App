@@ -13,19 +13,23 @@ import Form from 'react-bootstrap/Form';
 import './style.css'
 export default function Header() {
   const dispatch=useDispatch()
+  
   const userLogin=useSelector((state)=>state.userLogin)
   const {userInfo}=userLogin
-   const logoutHandler=()=>{
+  const logoutHandler=()=>{
     dispatch(logout())
   }
-    const productList=useSelector((state)=> state.productList)
-
+  const productList=useSelector((state)=> state.productList)
   const {loading,error,products}=productList
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const searchResults = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [localSearchTerm, setLocalSearchTerm] = useState('');
+
+  const handleSearch=(e)=>{
+    const term = e.target.value;
+
+    setLocalSearchTerm(term);
+  }
+
   return (
     <div>
       
@@ -61,24 +65,13 @@ export default function Header() {
                 </Nav.Link>
               </LinkContainer>
             )}
-        <InputGroup className="mb-3" style={{width:'260px',justifyContent:'center',display:'flex'}}>
-    <Form.Control
-      placeholder="SearchProduct"
-      aria-label="SearchProduct"
-      aria-describedby="basic-addon2"
-      value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-      />
-    </InputGroup>
-
+  
           </Nav>
           
           <Nav>
-         <Nav.Link >More deets</Nav.Link>
+         
 
-            <Nav.Link eventKey={2} href="#memes">
-              Dank memes
-            </Nav.Link>
+            
           </Nav>
           
         </Navbar.Collapse>
